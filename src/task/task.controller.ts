@@ -1,8 +1,16 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { TaskService } from './task.service';
-import { ClientGuard } from 'libs/guards/auth';
+import { ClientGuard } from '../../libs/guards/auth';
 
 @Controller('task')
 export class TaskController {
@@ -22,13 +30,13 @@ export class TaskController {
 
   @UseGuards(ClientGuard)
   @Get('user/:id')
-  findByUser(@Param('id') id: string) {
+  findByUser(@Param('id') id: number) {
     return this.taskService.findByUser(+id);
   }
 
   @UseGuards(ClientGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.taskService.findOne(+id);
   }
 
@@ -40,7 +48,7 @@ export class TaskController {
 
   @UseGuards(ClientGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.taskService.remove(+id);
   }
 }

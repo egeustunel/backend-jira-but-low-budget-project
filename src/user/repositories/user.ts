@@ -1,9 +1,20 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities';
+import { User } from '../../entities/user.entity';
 import { CreateUserDto } from '../dto/create-user.dto';
 
 export class UserRepository extends Repository<User> {
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {
+    super(
+      userRepository.target,
+      userRepository.manager,
+      userRepository.queryRunner,
+    );
+  }
+
   public async findAll(): Promise<User[]> {
     return this.find();
   }

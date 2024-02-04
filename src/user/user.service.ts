@@ -1,7 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { compareSync, hashSync } from 'bcrypt';
-import { TokenManager } from 'libs/classes/tokenManager';
-import { User } from 'src/entities';
+import { TokenManager } from '../../libs/classes/tokenManager';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { UserRepository } from './repositories/user';
@@ -14,7 +13,6 @@ export class UserService {
   }
   async create(createUserDto: CreateUserDto) {
     try {
-      const user = new User();
       createUserDto.password = this.createHash(createUserDto.password);
       const result = await this.repository.store(createUserDto);
       return result;
@@ -25,8 +23,11 @@ export class UserService {
 
   async login(data: LoginDto) {
     try {
+      console.log('sadsadasd');
+      console.log(data);
       const { email, password } = data;
       const checkUser = await this.repository.findByEmail(email);
+      console.log(checkUser);
 
       // is there a user for the given email
       if (!checkUser)
@@ -52,6 +53,10 @@ export class UserService {
     } catch (e) {
       throw new InternalServerErrorException(e);
     }
+  }
+
+  findAll() {
+    return this.repository.findAll();
   }
 
   createHash(password: string): string {

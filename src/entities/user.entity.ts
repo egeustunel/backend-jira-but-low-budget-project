@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Task } from './task.entity';
 
 @Entity('user')
@@ -25,5 +33,5 @@ export class User {
   public deletedAt?: Date;
 
   @OneToMany(() => Task, (task) => task.user)
-  public tasks: Task[];
+  public tasks?: Task[];
 }

@@ -1,5 +1,11 @@
-import { IsDate, IsDateString, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { TaskStatuses } from 'libs/enums';
+import {
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
+import { TaskStatuses } from '../../../libs/enums';
 
 export class CreateTaskDto {
   @IsNumber()
@@ -19,5 +25,5 @@ export class CreateTaskDto {
 
   @IsDateString()
   @IsNotEmpty({ message: "Due date can't be empty!" })
-  public dueDate: string;
+  public dueDate: Date;
 }

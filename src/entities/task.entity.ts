@@ -1,6 +1,15 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { TaskStatuses } from '../../libs/enums';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
-import { TaskStatuses } from 'libs/enums';
 
 @Entity('task')
 export class Task {
@@ -9,7 +18,7 @@ export class Task {
 
   @ManyToOne(() => User, (user) => user.tasks)
   @JoinColumn({ name: 'user_id' })
-  public user: User;
+  public user?: User;
 
   @Column({ name: 'user_id', type: 'int', nullable: true })
   public userId?: number = null;

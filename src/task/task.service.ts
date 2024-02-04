@@ -27,6 +27,6 @@ export class TaskService {
   }
 
   remove(id: number) {
-    return this.repository.destroy(id);
+    return this.repository.softDelete(id);
   }
 }

@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { Task } from 'src/entities';
+import { Task } from '../../entities';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from '../dto/create-task.dto';
 import { UpdateTaskDto } from '../dto/update-task.dto';
@@ -24,8 +24,8 @@ export class TaskRepository extends Repository<Task> {
     return this.findOneBy({ id: id });
   }
 
-  public async findByUserId(userId: number): Promise<Task | null> {
-    return this.findOneBy({ userId: userId });
+  public async findByUserId(userId: number): Promise<Task[] | null> {
+    return this.findBy({ userId: userId });
   }
 
   public async store(task: CreateTaskDto): Promise<Task> {
