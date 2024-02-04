@@ -5,6 +5,7 @@ import {
   Get,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -24,8 +25,8 @@ export class TaskController {
 
   @UseGuards(ClientGuard)
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Req() request: Request) {
+    return this.taskService.findAll(request['user']['userId']);
   }
 
   @UseGuards(ClientGuard)
